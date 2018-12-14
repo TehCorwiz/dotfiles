@@ -8,3 +8,7 @@
   roles:
     - system
 
+  vars_prompt:
+    - name: 'user_password'
+      prompt: "YOUR Password"
+
