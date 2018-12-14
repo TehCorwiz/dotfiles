@@ -1,0 +1,53 @@
+---
+
+- name: Install Packages
+  apt: pkg=
+  with_items:
+    - fish
+    - htop
+    - vim
+    - tmux
+    - git
+    - build-essential
+    - tree
+
+- name: Shell Facts
+  shell: 'echo $SHELL'
+  register: current_shell
+  changed_when: False
+  become: no
+
+- name: Make Fish Default Shell
+  shell: chsh -s /usr/bin/fish
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+
+- name: Download Oh-My-Fish
+  get_url:
+    url: 'https://get.oh-my.fish'
+    dest: /tmp/oh-my.fish
+    mode: 0777
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+
+- name: Install Oh-My-Fish
+  shell: 'fish /tmp/oh-my.fish'
+  become: no
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+
+- name: Check for Rust
+  shell: 'which rustup'
+  become: no
+  register: is_rust
+  changed_when: False
+
+- name: Download Rust
+  get_url: 
+    url: 'https://sh.rustup.rs'
+    dest: /tmp/rustup.sh
+    mode: 0777
+  when: is_rust.stdout.find('rustup') == -1
+
+- name: Install Rust
+  shell: 'sh /tmp/rustup.sh -y'
+  become: no
+  when: is_rust.stdout.find('rustup') == -1
+
