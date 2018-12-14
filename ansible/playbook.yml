@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  user: corwin
+  become: True
+  become_user: root
+  become_method: sudo
+  vars:
+    user: corwin
+  roles:
+    - system
+

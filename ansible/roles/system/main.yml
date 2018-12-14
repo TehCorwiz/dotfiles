@@ -1,0 +1,25 @@
+---
+
+-name: install
+  apt: pkg=
+  with_items:
+    - fish
+    - htop
+    - vim
+    - tmux
+    - ruby
+    - ruby-dev
+    - rubygems
+    - git
+    - build-essential
+
+- name: shell facts
+  shell: 'echo $SHELL'
+  register: current_shell
+  changed_when: False
+  sudo: no
+
+- name: make fish default
+  shell: chsh -s /usr/bin/fish
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+
