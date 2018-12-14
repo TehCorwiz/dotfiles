@@ -29,7 +29,7 @@
   when: current_shell.stdout.find('/usr/bin/fish') == -1
 
 - name: Install Oh-My-Fish
-  shell: 'fish /tmp/oh-my.fish'
+  shell: 'bash /tmp/oh-my.fish'
   become: no
   when: current_shell.stdout.find('/usr/bin/fish') == -1
 
@@ -47,7 +47,7 @@
   when: is_rust.stdout.find('rustup') == -1
 
 - name: Install Rust
-  shell: 'sh /tmp/rustup.sh -y'
+  shell: 'bash /tmp/rustup.sh -y'
   become: no
   when: is_rust.stdout.find('rustup') == -1
 
