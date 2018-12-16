@@ -18,55 +18,12 @@
   pip:
     name: pexpect
 
-- name: Shell Facts
-  shell: 'echo $SHELL'
-  register: current_shell
-  changed_when: False
-  become: no
+- name: Install Nerd Fonts
+  import_tasks: nerd-fonts.yml
 
-- name: Make Fish Default Shell
-  expect:
-    command: chsh -s /usr/bin/fish
-    responses:
-            (?i)Password: "{{ user_password }}"
-  when: current_shell.stdout.find('/usr/bin/fish') == -1
-  become: no
-
-- name: Download Oh-My-Fish
-  get_url:
-    url: 'https://get.oh-my.fish'
-    dest: /tmp/oh-my.fish
-    mode: 0777
-  when: current_shell.stdout.find('/usr/bin/fish') == -1
-
-- name: Install Oh-My-Fish
-  shell: '/tmp/oh-my.fish'
-  become: no
-  when:  (lookup('env', 'OMF_PATH') == '')
-  environment:
-    CI: ''
-
-- name: Check for Rust
-  shell: '. $HOME/.cargo/env && which rustup'
-  become: no
-  register: is_rust
-  changed_when: False
-  ignore_errors: True
-
-- name: Download Rust
-  get_url: 
-    url: 'https://sh.rustup.rs'
-    dest: /tmp/rustup.sh
-    mode: 0777
-  when: is_rust.stdout.find('rustup') == -1
+- name: Install Fish shell and plugins
+  import_tasks: fish.yml
 
 - name: Install Rust
-  shell: '/tmp/rustup.sh -y'
-  become: no
-  when: is_rust.stdout.find('rustup') == -1
-
-- name: Activate Rust
-  shell: '. $HOME/.cargo/env'
-  become: no
-  when: is_rust.stdout.find('rustup') == -1
+  import_tasks: rust.yml
 

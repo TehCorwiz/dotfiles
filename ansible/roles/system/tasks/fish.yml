@@ -1,0 +1,35 @@
+---
+
+- name: Check current shell
+  shell: 'echo $SHELL'
+  register: current_shell
+  changed_when: False
+  become: no
+
+- name: Make Fish Default Shell
+  expect:
+    command: chsh -s /usr/bin/fish
+    responses:
+            (?i)Password: "{{ user_password }}"
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+  become: no
+
+- name: Download Oh-My-Fish
+  get_url:
+    url: 'https://get.oh-my.fish'
+    dest: /tmp/oh-my.fish
+    mode: 0777
+  when: current_shell.stdout.find('/usr/bin/fish') == -1
+
+- name: Install Oh-My-Fish
+  shell: '/tmp/oh-my.fish'
+  become: no
+  when:  (lookup('env', 'OMF_PATH') == '')
+  environment:
+    CI: ''
+
+- name: Cleanup tmp Oh-My-Fish files
+  file:
+    state: absent
+    path: '/tmp/oh-my.fish'
+ 
