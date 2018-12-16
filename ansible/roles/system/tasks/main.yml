@@ -13,6 +13,9 @@
     - tree
     - python-pip
     - python3-pip
+    - libfreetype6-dev
+    - libfontconfig1-dev
+    - xclip
 
 - name: Install pexpect
   pip:
@@ -26,4 +29,10 @@
 
 - name: Install Rust
   import_tasks: rust.yml
+
+- name: Install LSD
+  import_tasks: lsd.yml
+
+- name: Install Alacritty
+  import_tasks: alacritty.yml
 

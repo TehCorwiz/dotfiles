@@ -1,0 +1,23 @@
+---
+
+- name: Clone Nerd Fonts from Git
+  git: 
+    repo: https://github.com/ryanoasis/nerd-fonts.git
+    dest: '/tmp/nerd-fonts'
+    depth: 1
+
+- name: Install Fura Mono Nerd Font from Nerd Fonts
+  shell: '/tmp/nerd-fonts/install.sh FiraMono FiraCode'
+  become: no
+  args:
+    chdir: '/tmp/nerd-fonts/'
+
+- stat: '/tmp/nerd-fonts'
+  register: tmp_nerd-fonts
+
+- name: Cleanup Nerd Fonts tmp files
+  file:
+    state: absent
+    path: '/tmp/nerd-fonts'
+  when: tmp_nerd-Fonts.stat.exists
+
