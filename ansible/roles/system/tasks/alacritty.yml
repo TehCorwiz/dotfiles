@@ -23,14 +23,8 @@
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
 
-- name: Check if tmp folder exists
-  stat:
-    path: '/tmp/alacritty'
-  register: tmp_alacritty
-
 - name: Cleanup Alacritty tmp files
   file:
     state: absent
     path: '/tmp/alacritty'
-  when: tmp_alacritty.stat.exists
 

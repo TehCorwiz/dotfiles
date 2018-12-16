@@ -1,27 +1,25 @@
 ---
 
 - name: Check for Rust
-  shell: '. $HOME/.cargo/env && which rustup'
+  stat:
+    path: '~/.cargo/env'
   become: no
   register: is_rust
-  changed_when: False
-  ignore_errors: True
-  check_mode: no
 
 - name: Download Rust
   get_url: 
     url: 'https://sh.rustup.rs'
     dest: /tmp/rustup.sh
     mode: 0777
-  when: is_rust.stdout.find('rustup') == -1
+  when: is_rust.stat.exists
 
 - name: Install Rust
   shell: '/tmp/rustup.sh -y'
   become: no
-  when: is_rust.stdout.find('rustup') == -1
+  when: is_rust.stat.exists
 
 - name: Activate Rust
-  shell: '. $HOME/.cargo/env'
+  shell: '. ~/.cargo/env'
   become: no
-  when: is_rust.stdout.find('rustup') == -1
+  when: is_rust.stat.exists
 

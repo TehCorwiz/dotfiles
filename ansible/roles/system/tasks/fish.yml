@@ -29,14 +29,8 @@
   environment:
     CI: ''
 
-- name: Check if tmp folder exists
-  stat:
-    path: '/tmp/oh-my.fish'
-  register: tmp_fish
-
 - name: Cleanup tmp Oh-My-Fish files
   file:
     state: absent
     path: '/tmp/oh-my.fish'
-  when: tmp_fish.stat.exists
 
