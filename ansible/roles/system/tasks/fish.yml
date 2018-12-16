@@ -4,6 +4,7 @@
   shell: 'echo $SHELL'
   register: current_shell
   changed_when: False
+  check_mode: no
   become: no
 
 - name: Make Fish Default Shell
@@ -28,7 +29,9 @@
   environment:
     CI: ''
 
-- stat: '/tmp/oh-my.fish'
+- name: Check if tmp folder exists
+  stat:
+    path: '/tmp/oh-my.fish'
   register: tmp_fish
 
 - name: Cleanup tmp Oh-My-Fish files

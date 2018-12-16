@@ -1,23 +1,31 @@
 ---
 
-- name: Clone Nerd Fonts from Git
+- name: Clone LSD from Git
   git: 
-    repo: https://github.com/ryanoasis/nerd-fonts.git
-    dest: '/tmp/nerd-fonts'
+    repo: 'https://github.com/Peltoche/lsd.git' 
+    dest: '/tmp/lsd'
     depth: 1
 
-- name: Install Fura Mono Nerd Font from Nerd Fonts
-  shell: '/tmp/nerd-fonts/install.sh FiraMono FiraCode'
+- name: Verify clone
+  stat:
+    path: '/tmp/lsd'
+  register: lsd_path
+
+- name: Install LSD
+  shell: 'cargo install lsd'
   become: no
   args:
-    chdir: '/tmp/nerd-fonts/'
+    chdir: '/tmp/lsd/'
+  when: lsd_path.stat.exists
 
-- stat: '/tmp/nerd-fonts'
-  register: tmp_nerd-fonts
+- name: Check if tmp folder exisets
+  stat:
+    path: '/tmp/lsd'
+  register: tmp_lsd
 
-- name: Cleanup Nerd Fonts tmp files
+- name: Cleanup LSD tmp files
   file:
     state: absent
-    path: '/tmp/nerd-fonts'
-  when: tmp_nerd-Fonts.stat.exists
+    path: '/tmp/lsd'
+  when: tmp_lsd.stat.exists
 

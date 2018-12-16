@@ -6,6 +6,7 @@
   register: is_rust
   changed_when: False
   ignore_errors: True
+  check_mode: no
 
 - name: Download Rust
   get_url: 
