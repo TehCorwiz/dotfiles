@@ -4,11 +4,9 @@
   apt:
     name: "{{ item }}"
   loop:
-    - fish
     - htop
     - vim
     - tmux
-    - git
     - build-essential
     - tree
     - python-pip

@@ -1,5 +1,12 @@
 ---
 
+- name: Git | Install
+  apt:
+    name: '{{ item  }}'
+  loop:
+    - git
+    - git-extra
+
 - name: Git | Link dotfiles
   file:
     src: './gitconfig'

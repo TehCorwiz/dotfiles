@@ -1,5 +1,9 @@
 ---
 
+- name: Fish | Install
+  apt:
+    name: 'fish'
+
 - name: Fish | Check current shell
   shell: 'echo $SHELL'
   register: current_shell
