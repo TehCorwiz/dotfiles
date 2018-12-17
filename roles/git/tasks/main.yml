@@ -1,0 +1,7 @@
+---
+
+- name: Git | Link dotfiles
+  file:
+    src: './gitconfig'
+    dest: '~/.gitconfig'
+

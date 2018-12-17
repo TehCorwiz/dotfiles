@@ -28,3 +28,9 @@
     state: absent
     path: '/tmp/alacritty'
 
+- name: Alacritty | Link dotfiles
+  file:
+    src: './alacritty'
+    dest: '~/.config/alacritty'
+    state: link
+
