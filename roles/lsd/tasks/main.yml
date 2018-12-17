@@ -1,29 +1,29 @@
 ---
 
-- name: Clone LSD from Git
+- name: LSD | Clone from git
   git: 
     repo: 'https://github.com/Peltoche/lsd.git' 
     dest: '/tmp/lsd'
     depth: 1
 
-- name: Verify clone
+- name: LSD | Verify clone
   stat:
     path: '/tmp/lsd'
   register: lsd_path
 
-- name: Install LSD
+- name: LSD | Install
   shell: 'cargo install lsd'
   become: no
   args:
     chdir: '/tmp/lsd/'
   when: lsd_path.stat.exists
 
-- name: Check if tmp folder exisets
+- name: LSD | Check if tmp folder exists
   stat:
     path: '/tmp/lsd'
   register: tmp_lsd
 
-- name: Cleanup LSD tmp files
+- name: LSD | Cleanup tmp files
   file:
     state: absent
     path: '/tmp/lsd'

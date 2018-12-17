@@ -1,29 +1,29 @@
 ---
 
-- name: Clone Alacritty from Git
+- name: Alacritty | Clone Git repo
   git: 
     repo: https://github.com/jwilm/alacritty.git
     dest: '/tmp/alacritty'
     depth: 1
 
-- name: Verify clone
+- name: Alacritty | Verify clone
   stat:
     path: '/tmp/alacritty'
   register: alacritty_path
 
-- name: Install Cargo Deb
+- name: Alacritty | Install Cargo Deb
   shell: 'cargo install cargo-deb'
   become: no
   when: alacritty_path.stat.exists
 
-- name: Install Alacritty
+- name: Alacritty | Install
   shell: 'cargo deb --install'
   become: no
   args:
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
 
-- name: Cleanup Alacritty tmp files
+- name: Alacritty | Cleanup tmp files
   file:
     state: absent
     path: '/tmp/alacritty'

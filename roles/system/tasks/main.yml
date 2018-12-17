@@ -21,18 +21,3 @@
   pip:
     name: pexpect
 
-- name: Install Nerd Fonts
-  import_tasks: nerd-fonts.yml
-
-- name: Install Fish shell and plugins
-  import_tasks: fish.yml
-
-- name: Install Rust
-  import_tasks: rust.yml
-
-- name: Install LSD
-  import_tasks: lsd.yml
-
-- name: Install Alacritty
-  import_tasks: alacritty.yml
-

@@ -3,4 +3,6 @@ all:
     localhost
   vars:
     ansible_connection: local
+    rust_version: 1.31.0
+    rust_update: True
 

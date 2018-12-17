@@ -7,6 +7,11 @@
     user: corwin
   roles:
     - system
+    - git
+    - fish
+    - fubarhouse.rust
+    - alacritty
+    - lsd
 
   vars_prompt:
     - name: 'user_password'
