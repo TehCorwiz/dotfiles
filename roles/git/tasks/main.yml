@@ -16,6 +16,6 @@
 - name: Git | Link dotfiles
   file:
     src: '{{ role_path  }}/files/gitconfig'
-    dest: './gitconfig'
+    dest: '~/.gitconfig'
     state: link
   become: no
