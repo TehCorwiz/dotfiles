@@ -8,6 +8,7 @@
   roles:
     - system
     - git
+    - vim
     - fish
     - fubarhouse.rust
     - nerd-fonts

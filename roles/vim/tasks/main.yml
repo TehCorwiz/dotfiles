@@ -1,0 +1,16 @@
+---
+
+- name: Vim | Install
+  apt:
+    name: 'vim'
+
+- name: Vim | Download Spacevim install script
+  get_url:
+    url: https://spacevim.org/install.sh
+    dest: /tmp/spacevim.sh
+
+- name: Vim | Install Spacevim
+  shell: ./spacevim.sh
+  args:
+    chdir: /tmp
+
