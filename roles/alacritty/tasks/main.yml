@@ -8,12 +8,6 @@
     - libfontconfig1-dev
     - xclip
 
-      #- name: Alacritty | Clone Git repo
-      #  git: 
-      #    repo: https://github.com/jwilm/alacritty.git
-      #    dest: '/tmp/alacritty'
-      #    depth: 1
-
 - name: Alacritty | Verify clone
   stat:
     path: '/tmp/alacritty'
@@ -24,11 +18,7 @@
   args:
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
-
-  #- name: Alacritty | Cleanup tmp files
-  #  file:
-  #    state: absent
-  #    path: '/tmp/alacritty'
+  ignore_errors: True
 
 - name: Alacritty | Link dotfiles
   file:

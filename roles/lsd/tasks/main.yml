@@ -17,6 +17,7 @@
   args:
     chdir: '/tmp/lsd/'
   when: lsd_path.stat.exists
+  ignore_errors: true
 
 - name: LSD | Check if tmp folder exists
   stat:
