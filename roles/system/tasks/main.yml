@@ -11,6 +11,8 @@
     - tree
     - python-pip
     - python3-pip
+    - docker
+    - docker-compose
 
 - name: Install pexpect
   pip:
