@@ -1,36 +1,38 @@
 ---
 
-- name: Alacritty | Clone Git repo
-  git: 
-    repo: https://github.com/jwilm/alacritty.git
-    dest: '/tmp/alacritty'
-    depth: 1
+- name: Alacritty | Install pre-reqs
+  apt:
+    name: '{{ item }}'
+  loop:
+    - libfreetype6-dev
+    - libfontconfig1-dev
+    - xclip
+
+      #- name: Alacritty | Clone Git repo
+      #  git: 
+      #    repo: https://github.com/jwilm/alacritty.git
+      #    dest: '/tmp/alacritty'
+      #    depth: 1
 
 - name: Alacritty | Verify clone
   stat:
     path: '/tmp/alacritty'
   register: alacritty_path
 
-- name: Alacritty | Install Cargo Deb
-  shell: 'cargo install cargo-deb'
-  become: no
-  when: alacritty_path.stat.exists
-
 - name: Alacritty | Install
-  shell: 'cargo deb --install'
-  become: no
+  shell: '. ~/.cargo/env && cargo install --git https://github.com/jwilm/alacritty'
   args:
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
 
-- name: Alacritty | Cleanup tmp files
-  file:
-    state: absent
-    path: '/tmp/alacritty'
+  #- name: Alacritty | Cleanup tmp files
+  #  file:
+  #    state: absent
+  #    path: '/tmp/alacritty'
 
 - name: Alacritty | Link dotfiles
   file:
-    src: './alacritty'
+    src: '{{ role_path }}/files/alacritty'
     dest: '~/.config/alacritty'
     state: link
 

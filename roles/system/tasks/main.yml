@@ -11,9 +11,6 @@
     - tree
     - python-pip
     - python3-pip
-    - libfreetype6-dev
-    - libfontconfig1-dev
-    - xclip
 
 - name: Install pexpect
   pip:

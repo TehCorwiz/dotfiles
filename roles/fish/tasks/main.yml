@@ -15,7 +15,7 @@
   expect:
     command: chsh -s /usr/bin/fish
     responses:
-            (?i)Password: "{{ user_password }}"
+      (?i)Password: "{{ user_password }}"
   when: current_shell.stdout.find('/usr/bin/fish') == -1
   become: no
 
@@ -31,18 +31,29 @@
   become: no
   when:  (lookup('env', 'OMF_PATH') == '')
   environment:
-    CI: ''
+    CI: '1'
 
 - name: Fish | Cleanup tmp files
   file:
     state: absent
     path: '/tmp/oh-my.fish'
 
+- name: Fish | Remove existing config
+  file:
+    state: absent
+    path: '{{ item  }}'
+  become: no
+  loop:
+    - '~/.config/fish'
+    - '~/.config/omf'
+
 - name: Fish | Link dotfiles
   file:
-    src: '{{ item.src  }}'
-    dest: '~/.config/{{ item.dest  }}'
+    src: '{{ role_path }}/files/{{ item.src  }}'
+    dest: '~/.config/{{ item.dest }}'
+    state: link
   loop:
-    - { src: './fish', dest: 'fish' }
-    - { src: './omf', dest: 'omf' }
+    - { src: 'fish', dest: 'fish' }
+    - { src: 'omf', dest: 'omf' }
+  become: no
 

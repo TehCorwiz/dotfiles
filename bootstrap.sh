@@ -7,5 +7,5 @@ sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible -y
 
 ansible-galaxy install fubarhouse.rust
-ansible-playbook -K -i ansible/inventory.yml ansible/playbook.yml
+ansible-playbook -K -i inventory.yml playbook.yml
 

@@ -5,10 +5,17 @@
     name: '{{ item  }}'
   loop:
     - git
-    - git-extra
+    - git-extras
+
+- name: Git | Remove existing dotfile
+  file:
+    state: absent
+    path: '~/.gitconfig'
+  become: no
 
 - name: Git | Link dotfiles
   file:
-    src: './gitconfig'
-    dest: '~/.gitconfig'
-
+    src: '{{ role_path  }}/files/gitconfig'
+    dest: './gitconfig'
+    state: link
+  become: no
