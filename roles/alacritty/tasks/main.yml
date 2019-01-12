@@ -23,6 +23,6 @@
 - name: Alacritty | Link dotfiles
   file:
     src: '{{ role_path }}/files/alacritty'
-    dest: '~/.config/alacritty'
+    dest: '/home/{{ user }}/.config/alacritty'
     state: link
 

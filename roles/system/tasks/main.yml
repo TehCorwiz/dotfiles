@@ -13,8 +13,6 @@
     - python3-pip
     - docker
     - docker-compose
-
-- name: Install pexpect
   pip:
     name: pexpect
 

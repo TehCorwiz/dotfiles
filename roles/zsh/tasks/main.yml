@@ -1,0 +1,28 @@
+---
+
+- name: Install Zsh
+  apt:
+    name: "zsh"
+
+- name: Install Oh-My-Zsh
+  git:
+    repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
+    dest: '/home/{{ user }}/.oh-my-zsh'
+  become: no
+
+- name: Install Powerline9k theme
+  git:
+    repo: 'https://github.com/bhilburn/powerlevel9k.git'
+    dest: '/home/{{ user }}/.oh-my-zsh/custom/themes/powerlevel9k'
+  become: no
+
+- name: Set Zsh as default shell
+  user:
+    name: '{{ user }}'
+    shell: '/usr/bin/zsh'
+
+- name: Link dotfile
+  file:
+    src: '{{ role_path }}/files/'
+    dest: '/home/{{ user }}/.zshrc'
+

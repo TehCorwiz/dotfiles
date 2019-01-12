@@ -8,12 +8,12 @@
   roles:
     - system
     - git
+    - zsh
     - vim
-    - fish
     - fubarhouse.rust
     - nerd-fonts
-    - alacritty
-    - lsd
+      #    - alacritty
+      #    - lsd
 
   vars_prompt:
     - name: 'user_password'

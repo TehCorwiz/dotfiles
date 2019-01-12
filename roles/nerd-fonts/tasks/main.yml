@@ -10,19 +10,20 @@
     repo: https://github.com/ryanoasis/nerd-fonts.git
     dest: '/tmp/nerd-fonts'
     depth: 1
-  when: nf.stat.exists
+  when: nf.stat.exists == false
 
 - name: Nerd-Fonts | Verify clone
   stat:
     path: '/tmp/nerd-fonts'
   register: nf_path
+  when: nf.stat.exists == false
 
 - name: Nerd-Fonts | Install
-  shell: '/tmp/nerd-fonts/install.sh FiraMono FiraCode'
+  shell: '/tmp/nerd-fonts/install.sh'
   become: no
   args:
     chdir: '/tmp/nerd-fonts/'
-  when: nf_path.stat.exists
+  when: nf_path.stat.exists 
 
 - name: Nerd-Fonts | Cleanup tmp files
   file:
