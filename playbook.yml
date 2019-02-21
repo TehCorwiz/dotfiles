@@ -12,8 +12,8 @@
     - vim
     - fubarhouse.rust
     - nerd-fonts
-      #    - alacritty
-      #    - lsd
+    - alacritty
+    - lsd
 
   vars_prompt:
     - name: 'user_password'

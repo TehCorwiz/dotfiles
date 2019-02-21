@@ -1,6 +1,7 @@
 ---
 
-- name: Alacritty | Install pre-reqs
+- name: Install pre-reqs from APT
+  when: ansible_distribution == 'Ubuntu'
   apt:
     name: '{{ item }}'
   loop:
@@ -8,19 +9,29 @@
     - libfontconfig1-dev
     - xclip
 
-- name: Alacritty | Verify clone
+- name: Install pre-reqs from DNF
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: '{{ item }}'
+  loop:
+    - freetype-devel
+    - fontconfig-devel
+    - xclip
+    - cmake
+
+- name: Verify clone
   stat:
     path: '/tmp/alacritty'
   register: alacritty_path
 
-- name: Alacritty | Install
+- name: Install
   shell: '. ~/.cargo/env && cargo install --git https://github.com/jwilm/alacritty'
   args:
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
   ignore_errors: True
 
-- name: Alacritty | Link dotfiles
+- name: Link dotfiles
   file:
     src: '{{ role_path }}/files/alacritty'
     dest: '/home/{{ user }}/.config/alacritty'

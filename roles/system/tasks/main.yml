@@ -1,6 +1,7 @@
 ---
 
-- name: Install Packages
+- name: Install APT Packages
+  when: ansible_distribution == 'Ubuntu'
   apt:
     name: "{{ item }}"
   loop:
@@ -15,4 +16,18 @@
     - docker-compose
   pip:
     name: pexpect
+
+- name: Install DNF Packages
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: "{{ item }}"
+  loop:
+    - htop
+    - vim
+    - tmux
+    - @development-tools
+    - tree
+    - python-pip
+    - docker
+    - docker-compose
 

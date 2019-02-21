@@ -1,31 +1,31 @@
 ---
 
-- name: Nerd-Fonts | Check if already installed
+- name: Check if already installed
   stat:
     path: '~/.local/share/fonts/NerdFonts/'
   register: nf
 
-- name: Nerd-Fonts | Clone git repo
+- name: Clone git repo
   git: 
     repo: https://github.com/ryanoasis/nerd-fonts.git
     dest: '/tmp/nerd-fonts'
     depth: 1
   when: nf.stat.exists == false
 
-- name: Nerd-Fonts | Verify clone
+- name: Verify clone
   stat:
     path: '/tmp/nerd-fonts'
   register: nf_path
   when: nf.stat.exists == false
 
-- name: Nerd-Fonts | Install
+- name: Install
   shell: '/tmp/nerd-fonts/install.sh'
   become: no
   args:
     chdir: '/tmp/nerd-fonts/'
   when: nf_path.stat.exists 
 
-- name: Nerd-Fonts | Cleanup tmp files
+- name: Cleanup tmp files
   file:
     state: absent
     path: '/tmp/nerd-fonts'

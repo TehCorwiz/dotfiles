@@ -1,15 +1,21 @@
 ---
 
-- name: Vim | Install
+- name: Install from APT
+  when: ansible_distribution == 'Ubuntu'
   apt:
     name: 'vim'
 
-- name: Vim | Download Spacevim install script
+- name: Install from DNF
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: 'vim'
+
+- name: Download Spacevim install script
   get_url:
     url: https://spacevim.org/install.sh
     dest: /tmp/spacevim.sh
 
-- name: Vim | Install Spacevim
+- name: Install Spacevim
   shell: ./spacevim.sh
   args:
     chdir: /tmp

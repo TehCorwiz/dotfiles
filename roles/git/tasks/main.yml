@@ -1,21 +1,31 @@
 ---
 
-- name: Git | Install
+- name: Install from APT
+  when: ansible_distribution == 'Ubuntu'
   apt:
     name: '{{ item  }}'
   loop:
     - git
     - git-extras
 
-- name: Git | Remove existing dotfile
+- name: Install from DNF
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: '{{ item }}'
+  loop:
+    - git
+    - git-extras
+
+- name: Remove existing dotfile
   file:
     state: absent
     path: '~/.gitconfig'
   become: no
 
-- name: Git | Link dotfiles
+- name: Link dotfiles
   file:
     src: '{{ role_path  }}/files/gitconfig'
     dest: '~/.gitconfig'
     state: link
   become: no
+

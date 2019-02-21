@@ -1,8 +1,14 @@
 ---
 
-- name: Install Zsh
+- name: Install Zsh from APT
+  when: ansible_distribution == 'Ubuntu'
   apt:
-    name: "zsh"
+    name: 'zsh'
+
+- name: Install Zsh from DNF
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: 'zsh'
 
 - name: Install Oh-My-Zsh
   git:
