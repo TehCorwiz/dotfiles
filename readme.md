@@ -1,6 +1,6 @@
 #### Dotfiles
 
 * These are my personal dotfiles.
-* They assume an ubuntu based linux distro.
-* There are bugs. I haven't finished the ansible scripts yet.
+* They currently support Ubuntu or Fedora distros at least insofar as package managers are concerned.
+* There are probably a efw bugs, LSD, and Alacritty install hasn't been tested thoroughly.
 
