@@ -3,6 +3,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export TERM="xterm-256color"
+
+# Added jetbrains tools to path
+path+=('/home/corwin/.local/share/JetBrains/Toolbox/bin')
+export PATH
+
 export ZSH="/home/corwin/.oh-my-zsh"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
@@ -26,8 +32,9 @@ alias ll='lsd -l'
 
 alias d-up='docker-compose up -d'
 alias d-stop='docker-compose stop'
+alias d-down='docker-compose down'
 alias d-bash='docker-compose run web bash'
-alias d-build='docker-compose build .'
+alias d-build='docker-compose build'
 alias d-logs='docker-compose logs -f'
 alias d-rm='docker-compose rm'
 alias d-ps='docker-compose ps'
