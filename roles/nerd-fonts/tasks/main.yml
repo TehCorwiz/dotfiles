@@ -2,8 +2,9 @@
 
 - name: Check if already installed
   stat:
-    path: '~/.local/share/fonts/NerdFonts/'
+    path: '/home/{{ user }}/.local/share/fonts/NerdFonts/'
   register: nf
+  become: no
 
 - name: Clone git repo
   git: 
@@ -11,12 +12,13 @@
     dest: '/tmp/nerd-fonts'
     depth: 1
   when: nf.stat.exists == false
+  become: no
 
 - name: Verify clone
   stat:
     path: '/tmp/nerd-fonts'
   register: nf_path
-  when: nf.stat.exists == false
+  become: no
 
 - name: Install
   shell: '/tmp/nerd-fonts/install.sh'

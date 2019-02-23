@@ -10,11 +10,12 @@
     - git
     - zsh
     - vim
-    - fubarhouse.rust
     - nerd-fonts
+    - role: naftulikay.rust-dev
+      rust_user: "{{ user }}"
     - alacritty
     - lsd
-
+    - jaredhocutt.jetbrains_toolbox
   vars_prompt:
     - name: 'user_password'
       prompt: "YOUR Password"

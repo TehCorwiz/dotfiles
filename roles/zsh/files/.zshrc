@@ -7,6 +7,9 @@ export TERM="xterm-256color"
 
 # Added jetbrains tools to path
 path+=('/home/corwin/.local/share/JetBrains/Toolbox/bin')
+# Added Cargo tools to path
+path+=('/home/corwin/.cargo/bin/')
+
 export PATH
 
 export ZSH="/home/corwin/.oh-my-zsh"

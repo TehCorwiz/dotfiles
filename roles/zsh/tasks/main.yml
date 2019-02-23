@@ -29,6 +29,7 @@
 
 - name: Link dotfile
   file:
-    src: '{{ role_path }}/files/'
+    src: '{{ role_path }}/files/.zshrc'
     dest: '/home/{{ user }}/.zshrc'
-
+    state: link
+  become: no

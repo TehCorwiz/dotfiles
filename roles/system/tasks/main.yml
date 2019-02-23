@@ -10,13 +10,12 @@
     - tmux
     - build-essential
     - tree
+    - python3
     - python-pip
     - python3-pip
     - docker
     - docker-compose
-  pip:
-    name: pexpect
-
+  
 - name: Install DNF Packages
   when: ansible_distribution == 'Fedora'
   dnf:
@@ -25,9 +24,15 @@
     - htop
     - vim
     - tmux
-    - @development-tools
+    - "@development-tools"
     - tree
+    - python2-libselinux
+    - python3
     - python-pip
     - docker
     - docker-compose
+
+- name: Install PIP Packages
+  pip:
+    name: pexpect
 

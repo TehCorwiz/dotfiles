@@ -14,9 +14,19 @@
   get_url:
     url: https://spacevim.org/install.sh
     dest: /tmp/spacevim.sh
+  become: no
+
+- name: Set exec flag on script
+  file:
+    path: /tmp/spacevim.sh
+    state: file
+    mode: 0755
+    modification_time: now
+    access_time: now
 
 - name: Install Spacevim
   shell: ./spacevim.sh
   args:
     chdir: /tmp
+  become: no
 

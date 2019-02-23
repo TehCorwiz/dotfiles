@@ -1,4 +1,9 @@
 ---
+- name: Check if already installed
+  stat:
+    path: /usr/local/bin/alacritty
+  register: alacritty_existing
+
 
 - name: Install pre-reqs from APT
   when: ansible_distribution == 'Ubuntu'
@@ -19,18 +24,39 @@
     - xclip
     - cmake
 
+- name: Clone from git
+  when: alacritty_existing.stat.exists == false
+  git:
+    repo: 'https://github.com/jwilm/alacritty.git'
+    dest: '/tmp/alacritty'
+  become: no
+
 - name: Verify clone
   stat:
     path: '/tmp/alacritty'
   register: alacritty_path
 
-- name: Install
-  shell: '. ~/.cargo/env && cargo install --git https://github.com/jwilm/alacritty'
+- name: Build release
+  shell: 'cargo build --release'
   args:
     chdir: '/tmp/alacritty/'
   when: alacritty_path.stat.exists
   ignore_errors: True
+  become: no
 
+- name: Copy executable to /usr/local/bin
+  when: alacritty_existing.stat.exists == false
+  copy:
+    src: '/tmp/alacritty/target/release/alacritty'
+    dest: '/usr/local/bin/alacritty'
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install Desktop file
+  when: alacritty_existing.stat.exists == false
+  shell: 'desktop-file-install /tmp/alacritty/alacritty.desktop && update-desktop-database'
+  
 - name: Link dotfiles
   file:
     src: '{{ role_path }}/files/alacritty'
