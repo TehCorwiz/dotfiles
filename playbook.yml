@@ -6,17 +6,15 @@
   vars:
     user: corwin
   roles:
-    - system
-    - git
-    - zsh
-    - vim
-    - nerd-fonts
-    - role: naftulikay.rust-dev
-      rust_user: "{{ user }}"
-    - alacritty
-    - lsd
-    - firefox-developer
-  vars_prompt:
-    - name: 'user_password'
-      prompt: "YOUR Password"
+    #- system
+    #- git
+    #- zsh
+    #- vim
+    #- nerd-fonts
+    #- role: naftulikay.rust-dev
+    #  rust_user: "{{ user }}"
+    #- alacritty
+    #- lsd
+    #- firefox-developer
+    - jetbrains-toolbox
 
