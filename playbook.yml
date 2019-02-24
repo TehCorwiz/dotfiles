@@ -15,7 +15,7 @@
       rust_user: "{{ user }}"
     - alacritty
     - lsd
-    - jaredhocutt.jetbrains_toolbox
+    - firefox-developer
   vars_prompt:
     - name: 'user_password'
       prompt: "YOUR Password"
