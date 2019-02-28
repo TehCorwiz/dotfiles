@@ -2,6 +2,7 @@
 
 dependencies:
   - role: system
-  - role: fubarhouse.rust
+  - role: naftulikay.rust-dev
+    rust_user: "{{ user }}"
   - role: git
 

@@ -10,12 +10,11 @@
     - git
     - zsh
     - vim
-    - fubarhouse.rust
     - nerd-fonts
+    - role: naftulikay.rust-dev
+      rust_user: "{{ user }}"
     - alacritty
     - lsd
-
-  vars_prompt:
-    - name: 'user_password'
-      prompt: "YOUR Password"
+    - firefox-developer
+    - jetbrains-toolbox
 

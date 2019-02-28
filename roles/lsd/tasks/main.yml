@@ -1,6 +1,12 @@
 ---
 
+- name: Check if already installed
+  stat:
+    path: "/home/{{ user }}/.cargo/bin/lsd"
+  register: lsd_existing
+
 - name: Clone from git
+  when: lsd_existing.stat.exists == false
   git: 
     repo: 'https://github.com/Peltoche/lsd.git' 
     dest: '/tmp/lsd'

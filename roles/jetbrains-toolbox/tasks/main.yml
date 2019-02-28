@@ -1,0 +1,31 @@
+---
+
+#- name: Check if already exists
+#  stat:
+#    path: 
+
+- name: Download from Jetbrains
+  get_url:
+    url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
+    dest: /tmp/jetbrains-toolbox.tar.gz
+  register: tlbxdownload
+
+- name: Extract archive
+  unarchive:
+    src: /tmp/jetbrains-toolbox.tar.gz
+    dest: /tmp/
+  when: tlbxdownload is changed
+
+- name: Get extracted dir
+  find:
+    paths: /tmp
+    patterns: 'jetbrains-toolbox-*'
+    file_type: directory
+    depth: 1
+  register: extractpath
+
+- name: Execute Jetbrains Toolbox (triggers install)
+  shell: ./jetbrains-toolbox
+  args:
+    chdir: '{{ extractpath.files[0].path }}'
+  become: no

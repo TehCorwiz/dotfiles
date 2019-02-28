@@ -1,0 +1,10 @@
+---
+
+- name: Add Unofficial Firefox Flatpak repo
+  shell: 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'
+
+- name: Install from Flatpak
+  flatpak:
+    name: 'https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxDevEdition.flatpakref'
+    state: present
+
