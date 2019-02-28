@@ -6,7 +6,6 @@
     name: "{{ item }}"
   loop:
     - htop
-    - vim
     - tmux
     - build-essential
     - tree
@@ -23,7 +22,6 @@
     name: "{{ item }}"
   loop:
     - htop
-    - vim
     - tmux
     - @development-tools
     - tree
