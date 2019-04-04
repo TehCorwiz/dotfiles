@@ -3,3 +3,4 @@
 	email = git@corwin.betabeetle.com
 [core]
 	autocrlf = input
+	excludesfile = ~/.gitignore

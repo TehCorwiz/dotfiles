@@ -20,6 +20,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 plugins=(
   git
   rvm
+  zsh-nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -53,3 +54,13 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs)
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+PATH="/home/corwin/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/corwin/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/corwin/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/corwin/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/corwin/perl5"; export PERL_MM_OPT;
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /home/corwin/Projects/jsmf/backup-utility/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/corwin/Projects/jsmf/backup-utility/node_modules/tabtab/.completions/electron-forge.zsh
