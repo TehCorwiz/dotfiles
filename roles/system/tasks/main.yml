@@ -12,8 +12,6 @@
     - python3
     - python-pip
     - python3-pip
-    - docker
-    - docker-compose
   
 - name: Install DNF Packages
   when: ansible_distribution == 'Fedora'
@@ -27,8 +25,7 @@
     - python2-libselinux
     - python3
     - python-pip
-    - docker
-    - docker-compose
+    - dnf-plugins-core
 
 - name: Install PIP Packages
   pip:
