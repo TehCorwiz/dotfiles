@@ -4,15 +4,16 @@
     path: /usr/local/bin/alacritty
   register: alacritty_existing
 
-
 - name: Install pre-reqs from APT
   when: ansible_distribution == 'Ubuntu'
   apt:
     name: '{{ item }}'
   loop:
+    - cmake
+    - pkg-config
     - libfreetype6-dev
     - libfontconfig1-dev
-    - xclip
+    - libxcb-xfixes0-dev 
 
 - name: Install pre-reqs from DNF
   when: ansible_distribution == 'Fedora'
@@ -23,6 +24,11 @@
     - fontconfig-devel
     - xclip
     - cmake
+
+- name: Install cargo-deb
+  when: alacritty_existing.stat.exists == false
+  shell: 'cargo install cargo-deb'
+  become: no
 
 - name: Clone from git
   when: alacritty_existing.stat.exists == false
@@ -55,8 +61,12 @@
 
 - name: Install Desktop file
   when: alacritty_existing.stat.exists == false
-  shell: 'desktop-file-install /tmp/alacritty/alacritty.desktop && update-desktop-database'
-  
+  shell: 'desktop-file-install /tmp/alacritty/extras/alacritty.desktop && update-desktop-database'
+
+- name: Install man pages
+  when: alacritty_existing.stat.exists == false
+  shell: 'gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null'
+
 - name: Link dotfiles
   file:
     src: '{{ role_path }}/files/alacritty'

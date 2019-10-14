@@ -24,8 +24,6 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 plugins=(
   git
-  rvm
-  zsh-nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -62,5 +60,5 @@ PERL_MB_OPT="--install_base \"/home/corwin/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/corwin/perl5"; export PERL_MM_OPT;
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+#export PATH="$PATH:$HOME/.rvm/bin"
 
