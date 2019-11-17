@@ -29,4 +29,6 @@
     dest: '/home/{{ user }}/.zshrc'
     state: link
   become: no
+
+- name: Reset connection
   meta: reset_connection

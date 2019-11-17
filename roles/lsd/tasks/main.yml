@@ -1,7 +1,6 @@
 ---
 
 - name: Clone from git
-  when: lsd_existing.stat.exists == false
   git: 
     repo: 'https://github.com/Peltoche/lsd.git' 
     dest: '/tmp/lsd'

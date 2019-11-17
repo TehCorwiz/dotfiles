@@ -3,4 +3,4 @@
 - name: Install from APT
   apt:
     name: alacritty
-    state: present\
+    state: present

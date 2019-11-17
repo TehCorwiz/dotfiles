@@ -2,8 +2,8 @@
 
 - name: Download Firefox Developer Edition from Mozilla
   get_url:
-  url: https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US
-  dest: /tmp/firefox-dev-edition.tar.gz
+    url: https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US
+    dest: /tmp/firefox-dev-edition.tar.gz
 
 - name: Extract archive
   unarchive:
@@ -13,12 +13,13 @@
 - name: Change ownership
   file:
     path: /opt/firefox
-    owner: {{ user }}
-    group: {{ user }}
+    owner: '{{ user }}'
+    group: '{{ user }}'
+    mode: '0777'
 
-- Install .desktop entry
-    file:
-      src: '{{ role_path }}/files/firefoxDeveloperEdition.desktop'
-      dest: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
-      state: link
-    become: no
+- name: Install .desktop entry
+  file:
+    src: '{{ role_path }}/files/firefoxDeveloperEdition.desktop'
+    dest: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
+    state: link
+  become: no

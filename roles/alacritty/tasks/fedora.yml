@@ -2,7 +2,6 @@
 
 - name: Enable Fedora Copr for Alacritty
   command: "dnf copr enable -y pschyska/alacritty"
-  creates: /etc/yum.repos.d/_copr_pschyska-alacritty.repo
 
 - name: Install Alacritty from DNF
   dnf:
