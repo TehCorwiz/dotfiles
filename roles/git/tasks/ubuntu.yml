@@ -1,0 +1,9 @@
+---
+
+- name: Install from APT
+  apt:
+    name: '{{ item  }}'
+    state: present
+  loop:
+    - git
+    - git-extras

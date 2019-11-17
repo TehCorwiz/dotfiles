@@ -1,20 +1,10 @@
 ---
 
-- name: Install from APT
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: '{{ item  }}'
-  loop:
-    - git
-    - git-extras
 
-- name: Install from DNF
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: '{{ item }}'
-  loop:
-    - git
-    - git-extras
 
 - name: Remove existing dotfile
   file:
@@ -35,4 +25,3 @@
     dest: '~/.gitignore'
     state: link
   become: no
-

@@ -1,0 +1,13 @@
+---
+- name: Install DNF Packages
+  dnf:
+    name: "{{ item }}"
+  loop:
+    - htop
+    - tmux
+    - "@development-tools"
+    - tree
+    - python2-libselinux
+    - python3
+    - python-pip
+    - dnf-plugins-core

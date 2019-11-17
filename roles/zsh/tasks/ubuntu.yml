@@ -1,0 +1,6 @@
+---
+
+- name: Install Zsh from APT
+  apt:
+    name: 'zsh'
+    state: present

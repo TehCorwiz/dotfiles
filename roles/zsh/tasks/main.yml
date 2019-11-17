@@ -1,14 +1,10 @@
 ---
 
-- name: Install Zsh from APT
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: 'zsh'
 
-- name: Install Zsh from DNF
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: 'zsh'
 
 - name: Install Oh-My-Zsh
   git:
@@ -33,3 +29,4 @@
     dest: '/home/{{ user }}/.zshrc'
     state: link
   become: no
+  meta: reset_connection

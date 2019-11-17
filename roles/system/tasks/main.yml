@@ -1,33 +1,11 @@
 ---
 
-- name: Install APT Packages
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: "{{ item }}"
-  loop:
-    - htop
-    - tmux
-    - build-essential
-    - tree
-    - python3
-    - python-pip
-    - python3-pip
   
-- name: Install DNF Packages
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: "{{ item }}"
-  loop:
-    - htop
-    - tmux
-    - "@development-tools"
-    - tree
-    - python2-libselinux
-    - python3
-    - python-pip
-    - dnf-plugins-core
 
 - name: Install PIP Packages
   pip:
     name: pexpect
-

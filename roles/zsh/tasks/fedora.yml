@@ -1,0 +1,6 @@
+---
+
+- name: Install Zsh from DNF
+  dnf:
+    name: 'zsh'
+    state: present

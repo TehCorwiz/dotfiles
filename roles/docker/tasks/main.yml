@@ -1,34 +1,9 @@
 ---
-
-#- name: Add APT Repo
-#  when: ansible_distribution == 'Ubuntu'
-# TODO
-
-- name: Install from APT
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: '{{ item  }}'
-  loop:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-compose
-  
-- name: Add DNF Repo
-  when: ansible_distribution == 'Fedora'
-  shell: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-  args:
-    warn: false
 
-- name: Install from DNF
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: '{{ item }}'
-  loop:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-compose
 
 - name: Enable and start service
   systemd:
@@ -46,4 +21,3 @@
     name: "{{ user }}"
     groups: docker
     append: yes
-

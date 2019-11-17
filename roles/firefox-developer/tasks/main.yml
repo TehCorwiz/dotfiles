@@ -1,10 +1,24 @@
 ---
 
-- name: Add Unofficial Firefox Flatpak repo
-  shell: 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo'
+- name: Download Firefox Developer Edition from Mozilla
+  get_url:
+  url: https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US
+  dest: /tmp/firefox-dev-edition.tar.gz
 
-- name: Install from Flatpak
-  flatpak:
-    name: 'https://firefox-flatpak.mojefedora.cz/org.mozilla.FirefoxDevEdition.flatpakref'
-    state: present
+- name: Extract archive
+  unarchive:
+    src: /tmp/firefox-dev-edition.tar.gz
+    dest: /opt/
 
+- name: Change ownership
+  file:
+    path: /opt/firefox
+    owner: {{ user }}
+    group: {{ user }}
+
+- Install .desktop entry
+    file:
+      src: '{{ role_path }}/files/firefoxDeveloperEdition.desktop'
+      dest: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
+      state: link
+    become: no

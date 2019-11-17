@@ -1,14 +1,10 @@
 ---
 
-- name: Install from APT
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: 'vim'
 
-- name: Install from DNF
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: 'vim'
 
 - name: Download Spacevim install script
   get_url:
@@ -29,4 +25,3 @@
   args:
     chdir: /tmp
   become: no
-

@@ -1,0 +1,12 @@
+---
+- name: Install APT Packages
+  apt:
+    name: "{{ item }}"
+  loop:
+    - htop
+    - tmux
+    - build-essential
+    - tree
+    - python3
+    - python-pip
+    - python3-pip

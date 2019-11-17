@@ -1,9 +1,5 @@
 ---
 
-#- name: Check if already exists
-#  stat:
-#    path: 
-
 - name: Download from Jetbrains
   get_url:
     url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'

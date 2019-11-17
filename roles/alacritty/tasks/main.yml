@@ -1,75 +1,12 @@
 ---
-- name: Check if already installed
-  stat:
-    path: /usr/local/bin/alacritty
-  register: alacritty_existing
-
-- name: Install pre-reqs from APT
+- import_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    name: '{{ item }}'
-  loop:
-    - cmake
-    - pkg-config
-    - libfreetype6-dev
-    - libfontconfig1-dev
-    - libxcb-xfixes0-dev 
 
-- name: Install pre-reqs from DNF
+- import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-  dnf:
-    name: '{{ item }}'
-  loop:
-    - freetype-devel
-    - fontconfig-devel
-    - xclip
-    - cmake
-
-- name: Install cargo-deb
-  when: alacritty_existing.stat.exists == false
-  shell: 'cargo install cargo-deb'
-  become: no
-
-- name: Clone from git
-  when: alacritty_existing.stat.exists == false
-  git:
-    repo: 'https://github.com/jwilm/alacritty.git'
-    dest: '/tmp/alacritty'
-  become: no
-
-- name: Verify clone
-  stat:
-    path: '/tmp/alacritty'
-  register: alacritty_path
-
-- name: Build release
-  shell: 'cargo build --release'
-  args:
-    chdir: '/tmp/alacritty/'
-  when: alacritty_path.stat.exists
-  ignore_errors: True
-  become: no
-
-- name: Copy executable to /usr/local/bin
-  when: alacritty_existing.stat.exists == false
-  copy:
-    src: '/tmp/alacritty/target/release/alacritty'
-    dest: '/usr/local/bin/alacritty'
-    owner: root
-    group: root
-    mode: 0755
-
-- name: Install Desktop file
-  when: alacritty_existing.stat.exists == false
-  shell: 'desktop-file-install /tmp/alacritty/extras/alacritty.desktop && update-desktop-database'
-
-- name: Install man pages
-  when: alacritty_existing.stat.exists == false
-  shell: 'gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null'
 
 - name: Link dotfiles
   file:
     src: '{{ role_path }}/files/alacritty'
     dest: '/home/{{ user }}/.config/alacritty'
     state: link
-

@@ -1,0 +1,6 @@
+---
+
+- name: Install from DNF
+  dnf:
+    name: vim
+    state: present
