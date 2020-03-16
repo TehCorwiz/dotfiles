@@ -1,19 +1,20 @@
 # Zsh Config
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 export TERM="xterm-256color"
 
 # Make sure paths are unique
 typeset -U path
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+path+=("$HOME/.rvm/bin")
 # Added jetbrains tools to path
 path+=("$HOME/.local/share/JetBrains/Toolbox/bin/")
 # Added Cargo tools to path
 path+=("$HOME/.cargo/bin/")
 # Perl, for some reason?
 path+=("$HOME/perl5/bin/")
+# Personal bin
+path+=("$HOME/.local/bin/")
 
 export PATH
 
@@ -59,6 +60,9 @@ PERL_LOCAL_LIB_ROOT="/home/corwin/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 PERL_MB_OPT="--install_base \"/home/corwin/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/corwin/perl5"; export PERL_MM_OPT;
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#export PATH="$PATH:$HOME/.rvm/bin"
+source /home/corwin/.config/broot/launcher/bash/br
+source $HOME/.rvm/scripts/rvm
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
