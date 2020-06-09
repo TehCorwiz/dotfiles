@@ -15,6 +15,8 @@ path+=("$HOME/.cargo/bin/")
 path+=("$HOME/perl5/bin/")
 # Personal bin
 path+=("$HOME/.local/bin/")
+# Emacs DOOM config
+path+=("~/.emacs.d/bin/")
 
 export PATH
 
@@ -32,6 +34,8 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+
+alias fd='fdfind'
 
 alias l='lsd'
 alias ls='lsd' 
