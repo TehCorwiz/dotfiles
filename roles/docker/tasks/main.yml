@@ -1,0 +1,6 @@
+---
+- import_tasks: debian.yml
+  when: ansible_distribution == 'Pop!_OS'
+
+- import_tasks: debian.yml
+  when: ansible_distribution == 'Ubuntu'
