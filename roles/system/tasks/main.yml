@@ -1,9 +1,14 @@
 ---
+- debug:
+    msg: Distro = {{ ansible_distribution }} | Family = {{ ansible_os_family }}
 
-- import_tasks: ubuntu.yml
+- import_tasks: ./debian.yml
+  when: ansible_distribution == 'Pop!_OS'
+
+- import_tasks: ./debian.yml
   when: ansible_distribution == 'Ubuntu'
   
-- import_tasks: fedora.yml
+- import_tasks: ./fedora.yml
   when: ansible_distribution == 'Fedora'
 
 - name: Install PIP Packages

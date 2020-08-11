@@ -7,5 +7,5 @@ sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible -y
 
 ansible-galaxy install naftulikay.rust-dev
+ansible-galaxy install geerlingguy.docker
 ansible-playbook -K -i inventory.yml playbook.yml
-

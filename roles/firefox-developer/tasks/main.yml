@@ -1,14 +1,21 @@
 ---
+- name: Check if already installed
+  stat:
+    path: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
+  register: ffd
+  become: no
 
 - name: Download Firefox Developer Edition from Mozilla
   get_url:
     url: https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US
     dest: /tmp/firefox-dev-edition.tar.gz
+  when: ffd.stat.exists == false
 
 - name: Extract archive
   unarchive:
     src: /tmp/firefox-dev-edition.tar.gz
     dest: /opt/
+  when: ffd.stat.exists == false
 
 - name: Change ownership
   file:
@@ -16,6 +23,7 @@
     owner: '{{ user }}'
     group: '{{ user }}'
     mode: '0777'
+  when: ffd.stat.exists == false
 
 - name: Install .desktop entry
   file:
@@ -23,3 +31,4 @@
     dest: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
     state: link
   become: no
+  when: ffd.stat.exists == false

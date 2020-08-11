@@ -17,4 +17,4 @@
     - lsd
     - firefox-developer
     - jetbrains-toolbox
-    - docker
+    - role: geerlingguy.docker
