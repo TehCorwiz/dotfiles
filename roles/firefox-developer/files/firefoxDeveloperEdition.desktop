@@ -1,3 +1,4 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Firefox Developer
 GenericName=Firefox Developer Edition

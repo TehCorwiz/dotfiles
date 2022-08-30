@@ -41,11 +41,14 @@ alias ll='lsd -l'
 alias d-up='docker-compose up -d'
 alias d-stop='docker-compose stop'
 alias d-down='docker-compose down'
-alias d-bash='docker-compose run web bash'
+alias d-bash='docker-compose run app bash'
 alias d-build='docker-compose build'
 alias d-logs='docker-compose logs -f'
 alias d-rm='docker-compose rm'
 alias d-ps='docker-compose ps'
+
+# Kitty shortcuts
+alias kat="kitty +kitten icat"
 
 # Powerlevel9k config
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -59,4 +62,24 @@ source $HOME/.rvm/scripts/rvm
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/corwin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/corwin/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/corwin/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/corwin/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 

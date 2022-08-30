@@ -1,9 +1,0 @@
----
-
-- name: Enable Fedora Copr for Alacritty
-  command: "dnf copr enable -y pschyska/alacritty"
-
-- name: Install Alacritty from DNF
-  dnf:
-    name: alacritty
-    state: present

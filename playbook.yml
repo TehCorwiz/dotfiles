@@ -10,10 +10,8 @@
     - git
     - zsh
     - vim
-    - nerd-fonts
     - role: naftulikay.rust-dev
       rust_user: "{{ user }}"
-    - alacritty
     - lsd
     - firefox-developer
     - jetbrains-toolbox

@@ -1,8 +1,0 @@
----
-
-dependencies:
-  - role: system
-  - role: naftulikay.rust-dev
-    rust_user: "{{ user }}"
-  - role: git
-
