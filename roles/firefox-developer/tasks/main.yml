@@ -1,9 +1,9 @@
 ---
+
 - name: Check if already installed
   stat:
-    path: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
+    path: /home/{{ user }}/Apps/firefox/firefox
   register: ffd
-  become: no
 
 - name: Download Firefox Developer Edition from Mozilla
   get_url:
@@ -14,21 +14,22 @@
 - name: Extract archive
   unarchive:
     src: /tmp/firefox-dev-edition.tar.gz
-    dest: /opt/
+    dest: /home/{{ user }}/Apps
   when: ffd.stat.exists == false
 
 - name: Change ownership
   file:
-    path: /opt/firefox
+    path: /home/{{ user }}/Apps/firefox
     owner: '{{ user }}'
     group: '{{ user }}'
-    mode: '0777'
+    mode: '0755'
   when: ffd.stat.exists == false
 
 - name: Install .desktop entry
-  file:
+  template:
     src: '{{ role_path }}/files/firefoxDeveloperEdition.desktop'
-    dest: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
-    state: link
-  become: no
+    dest: '/home/{{ user }}/.local/share/applications/firefoxDeveloperEdition.desktop'
+    owner: '{{ user }}'
+    group: '{{ user }}'
+    mode: '0755'
   when: ffd.stat.exists == false

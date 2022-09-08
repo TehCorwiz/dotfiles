@@ -14,3 +14,9 @@
 - name: Install PIP Packages
   pip:
     name: pexpect
+
+- name: Create Personal `Apps` folder
+  file:
+    src: ~/Apps/
+    state: directory
+    mode: '0755'
