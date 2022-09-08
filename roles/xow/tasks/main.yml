@@ -1,0 +1,73 @@
+---
+
+- name: Install APT dependencies
+  apt:
+    name: "{{ item }}"
+  loop:
+    - libusb-1.0-0-dev
+    - cabextract
+
+- name: Clone from git
+  git:
+    repo: 'https://github.com/medusalix/xow'
+    dest: '/tmp/xow'
+    depth: 1
+
+- name: Verify clone
+  stat:
+    path: '/tmp/xow'
+  register: xow_path
+
+- name: Recursively change ownership of a directory
+  become: yes
+  ansible.builtin.file:
+    path: '/tmp/xow'
+    state: directory
+    mode: 777
+    owner: corwin
+    group: corwin
+    recurse: yes
+  when: xow_path.stat.exists
+
+- name: Build xow
+  shell: 'make BUILD=RELEASE'
+  become: yes
+  args:
+    chdir: '/tmp/xow'
+  when: xow_path.stat.exists
+
+- name: Make firmware script writable
+  become: yes
+  file:
+    path: '/tmp/xow/firmware.sh'
+    mode: 755
+  when: xow_path.stat.exists
+
+- name: Download firmware
+  shell: 'sh firmware.sh'
+  become: yes
+  args:
+    chdir: '/tmp/xow'
+  when: xow_path.stat.exists
+
+- name: Install xow
+  shell: 'make install'
+  become: yes
+  args:
+    chdir: '/tmp/xow'
+  when: xow_path.stat.exists
+  ignore_errors: true
+
+- name: Enable service
+  become: yes
+  systemd:
+    name: xow
+    enabled: yes
+    state: started
+
+- name: Cleanup tmp files
+  become: yes
+  file:
+    state: absent
+    path: '/tmp/xow'
+  when: xow_path.stat.exists
