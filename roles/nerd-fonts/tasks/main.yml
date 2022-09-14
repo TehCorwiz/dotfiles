@@ -2,7 +2,7 @@
 
 - name: Check if already installed
   stat:
-    path: '/home/{{ user }}/.local/share/fonts/NerdFonts/'
+    path: '/home/{{ ansible_user_id }}/.local/share/fonts/NerdFonts/'
   register: nf
   become: no
 

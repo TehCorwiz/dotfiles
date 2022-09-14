@@ -1,19 +1,22 @@
 ---
 - hosts: localhost
   user: corwin
-  become: True
   become_method: sudo
   vars:
-    user: corwin
+    apps_path: /home/{{ ansible_user_id }}/Apps
   roles:
-    - system
-    - git
-    - zsh
-    - vim
-    - role: naftulikay.rust-dev
-      rust_user: "{{ user }}"
-    - lsd
-    - firefox-developer
-    - jetbrains-toolbox
-    - docker
+#    - system
+#    - git
+#    - zsh
+#    - vim
+#    - role: naftulikay.rust-dev
+#      rust_user: "{{ ansible_user_id }}"
+#    - lsd
+#    - firefox-developer
+#    - jetbrains-toolbox
+#    - docker
 #    - xow
+#    - mangohud
+#    - goverlay
+#    - vkbasalt
+    - replay_sorcery

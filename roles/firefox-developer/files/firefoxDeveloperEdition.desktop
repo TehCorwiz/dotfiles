@@ -2,9 +2,9 @@
 [Desktop Entry]
 Name=Firefox Developer
 GenericName=Firefox Developer Edition
-Exec=/home/{{ user }}/Apps/firefox/firefox
+Exec={{ apps_path }}/firefox/firefox
 Terminal=false
-Icon=/home/{{ user }}/Apps/firefox/browser/chrome/icons/default/default48.png
+Icon={{ apps_path }}/firefox/browser/chrome/icons/default/default48.png
 Type=Application
 Categories=Application;Network;X-Developer;
 Comment=Firefox Developer Edition Web Browser

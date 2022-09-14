@@ -2,7 +2,7 @@
 
 - name: Check if already installed
   stat:
-    path: /home/{{ user }}/Apps/firefox/firefox
+    path: {{ apps_path }}/firefox/firefox
   register: ffd
 
 - name: Download Firefox Developer Edition from Mozilla
@@ -14,22 +14,22 @@
 - name: Extract archive
   unarchive:
     src: /tmp/firefox-dev-edition.tar.gz
-    dest: /home/{{ user }}/Apps
+    dest: {{ apps_path }}
   when: ffd.stat.exists == false
 
 - name: Change ownership
   file:
-    path: /home/{{ user }}/Apps/firefox
-    owner: '{{ user }}'
-    group: '{{ user }}'
+    path: {{ apps_path }}/firefox
+    owner: '{{ ansible_user_id }}'
+    group: '{{ ansible_user_id }}'
     mode: '0755'
   when: ffd.stat.exists == false
 
 - name: Install .desktop entry
   template:
     src: '{{ role_path }}/files/firefoxDeveloperEdition.desktop'
-    dest: '/home/{{ user }}/.local/share/applications/firefoxDeveloperEdition.desktop'
-    owner: '{{ user }}'
-    group: '{{ user }}'
+    dest: '/home/{{ ansible_user_id }}/.local/share/applications/firefoxDeveloperEdition.desktop'
+    owner: '{{ ansible_user_id }}'
+    group: '{{ ansible_user_id }}'
     mode: '0755'
   when: ffd.stat.exists == false
