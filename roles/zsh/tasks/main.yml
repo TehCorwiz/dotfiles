@@ -13,13 +13,11 @@
   git:
     repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
     dest: '/home/{{ ansible_user_id }}/.oh-my-zsh'
-  become: no
 
 - name: Install Powerline9k theme
   git:
     repo: 'https://github.com/bhilburn/powerlevel9k.git'
     dest: '/home/{{ ansible_user_id }}/.oh-my-zsh/custom/themes/powerlevel9k'
-  become: no
 
 - name: Set Zsh as default shell
   user:
@@ -31,7 +29,6 @@
     src: '{{ role_path }}/files/.zshrc'
     dest: '/home/{{ ansible_user_id }}/.zshrc'
     state: link
-  become: no
 
 - name: Reset connection
   meta: reset_connection

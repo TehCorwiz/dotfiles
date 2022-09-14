@@ -5,6 +5,7 @@
   vars:
     apps_path: /home/{{ ansible_user_id }}/Apps
   roles:
+# Basic things
     - system
     - git
     - zsh
@@ -12,12 +13,15 @@
     - role: naftulikay.rust-dev
       rust_user: "{{ ansible_user_id }}"
     - lsd
-    - firefox-developer
-    - jetbrains-toolbox
+    - nerd_fonts
+# Developer things
     - docker
-    - xow
+    - jetbrains_toolbox
+    - firefox_developer
     - zotero
-    - mangohud
+# Gaming things
+    - xow
     - goverlay
+    - mangohud
     - vkbasalt
-
+    - replay_sorcery

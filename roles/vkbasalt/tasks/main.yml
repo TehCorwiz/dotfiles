@@ -1,6 +1,6 @@
 ---
 - name: Install APT dependencies
-  become: yes
+  become: true
   apt:
     name: "{{ item }}"
   loop:
@@ -9,11 +9,11 @@
     - libvulkan-dev
 
 - name: Clone from git
-  become: no
+
   git:
     repo: 'git@github.com:DadSchoorse/vkBasalt.git'
     dest: '{{ apps_path }}/vkBasalt'
-    recursive: yes
+    recursive: true
 
 - name: Verify clone
   stat:
@@ -27,7 +27,7 @@
   when: vk_path.stat.exists
 
 - name: Install
-  become: yes
+  become: true
   shell: 'ninja -C builddir install'
   args:
     chdir: '{{ apps_path }}/vkBasalt'

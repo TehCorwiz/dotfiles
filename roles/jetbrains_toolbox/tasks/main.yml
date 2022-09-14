@@ -4,20 +4,20 @@
   stat:
     path: '~/.local/share/applications/firefoxDeveloperEdition.desktop'
   register: jbtb
-  become: no
+
 
 - name: Download from Jetbrains
   get_url:
     url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
     dest: /tmp/jetbrains-toolbox.tar.gz
   register: tlbxdownload
-  when: jbtb.stat.exists == false
+  when: not jbtb.stat.exists
 
 - name: Extract archive
   unarchive:
     src: /tmp/jetbrains-toolbox.tar.gz
     dest: /tmp/
-  when: (jbtb.stat.exists == false) and (tlbxdownload is changed)
+  when: (not jbtb.stat.exists) and (tlbxdownload is changed)
 
 - name: Get extracted dir
   find:
@@ -26,18 +26,18 @@
     file_type: directory
     depth: 1
   register: extractpath
-  when: jbtb.stat.exists == false
+  when: not jbtb.stat.exists
 
 - name: Execute Jetbrains Toolbox (triggers install)
   shell: ./jetbrains-toolbox
   args:
     chdir: '{{ extractpath.files[0].path }}'
-  become: no
-  when: jbtb.stat.exists == false
+
+  when: not jbtb.stat.exists
 
 - name: Leave install marker
   file:
     path: /opt/.jetbrains-toolbox-installed
     state: touch
     mode: u=rw,g=r,o=r
-  when: jbtb.stat.exists == false
+  when: not jbtb.stat.exists

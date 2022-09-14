@@ -1,0 +1,38 @@
+---
+- name: Install APT dependencies
+  become: true
+  apt:
+    name: "{{ item }}"
+  loop:
+    - cmake
+    - libdrm-dev
+    - libvulkan-dev
+    - libpulse-dev
+    - libx11-xcb-dev
+    - libavfilter-dev
+    - libavdevice-dev
+
+- name: Clone from git
+
+  git:
+    repo: 'git@github.com:matanui159/ReplaySorcery.git'
+    dest: '{{ apps_path }}/ReplaySorcery'
+    recursive: true
+
+- name: Verify clone
+  stat:
+    path: '{{ apps_path }}/ReplaySorcery'
+  register: rs_path
+
+- name: Build
+  shell: 'cmake -B bin -DCMAKE_BUILD_TYPE=Release && make -C bin'
+  args:
+    chdir: '{{ apps_path }}/ReplaySorcery'
+  when: rs_path.stat.exists
+
+- name: Install
+  become: true
+  shell: 'make -C bin install'
+  args:
+    chdir: '{{ apps_path }}/ReplaySorcery'
+  when: rs_path.stat.exists

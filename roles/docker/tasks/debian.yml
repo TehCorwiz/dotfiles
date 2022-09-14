@@ -16,7 +16,7 @@
     state: present
 
 - name: Save the current Ubuntu release version into a variable
-  shell: lsb_release -cs
+  command: lsb_release -cs
   register: ubuntu_version
 
 - name: Add Docker Repository
@@ -34,7 +34,7 @@
     - ctop
 
 - name: Test Docker with hello world example
-  shell: "docker run hello-world"
+  command: "docker run hello-world"
   register: hello_world_output
 
 - name: Show output of hello word example
@@ -50,4 +50,4 @@
   user:
     name: "{{ ansible_user_id }}"
     groups: "docker"
-    append: "yes"
+    append: true

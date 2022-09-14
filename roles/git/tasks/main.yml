@@ -10,18 +10,15 @@
   file:
     state: absent
     path: '~/.gitconfig'
-  become: no
 
 - name: Link .gitconfig
   file:
     src: '{{ role_path }}/files/gitconfig'
     dest: '~/.gitconfig'
     state: link
-  become: no
 
 - name: Link .gitignore
   file:
     src: '{{ role_path }}/files/gitignore'
     dest: '~/.gitignore'
     state: link
-  become: no

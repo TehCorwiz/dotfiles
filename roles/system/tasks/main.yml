@@ -7,7 +7,7 @@
 
 - import_tasks: ./debian.yml
   when: ansible_distribution == 'Ubuntu'
-  
+
 - import_tasks: ./fedora.yml
   when: ansible_distribution == 'Fedora'
 

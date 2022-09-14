@@ -1,7 +1,7 @@
 ---
 
 - name: Clone from git
-  git: 
+  git:
     repo: 'https://github.com/Peltoche/lsd.git' 
     dest: '/tmp/lsd'
     depth: 1
@@ -13,7 +13,7 @@
 
 - name: Install
   shell: 'cargo install lsd'
-  become: no
+
   args:
     chdir: '/tmp/lsd/'
   when: lsd_path.stat.exists

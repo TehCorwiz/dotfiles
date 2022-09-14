@@ -4,31 +4,28 @@
   stat:
     path: '/home/{{ ansible_user_id }}/.local/share/fonts/NerdFonts/'
   register: nf
-  become: no
 
 - name: Clone git repo
-  git: 
+  git:
     repo: https://github.com/ryanoasis/nerd-fonts.git
     dest: '/tmp/nerd-fonts'
     depth: 1
-  when: nf.stat.exists == false
-  become: no
+  when: not nf.stat.exists
 
 - name: Verify clone
   stat:
     path: '/tmp/nerd-fonts'
   register: nf_path
-  become: no
+
 
 - name: Install
   shell: '/tmp/nerd-fonts/install.sh'
-  become: no
+
   args:
     chdir: '/tmp/nerd-fonts/'
-  when: nf_path.stat.exists 
+  when: nf_path.stat.exists
 
 - name: Cleanup tmp files
   file:
     state: absent
     path: '/tmp/nerd-fonts'
-

@@ -3,5 +3,4 @@
 dependencies:
   - role: system
   - role: git
-  - role: nerd-fonts
-
+  - role: nerd_fonts

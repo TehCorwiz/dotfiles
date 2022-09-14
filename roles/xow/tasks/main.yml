@@ -42,16 +42,16 @@
 
 - name: Install
   shell: 'make install'
-  become: yes
+  become: true
   args:
     chdir: '{{ apps_path }}/xow'
   when: xow_path.stat.exists
   ignore_errors: true
 
 - name: Enable service
-  become: yes
+  become: true
   systemd:
     name: xow
-    enabled: yes
+    enabled: true
     state: started
 

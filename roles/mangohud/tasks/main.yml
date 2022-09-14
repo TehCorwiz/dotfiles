@@ -1,6 +1,6 @@
 ---
 - name: Install APT dependencies
-  become: yes
+  become: true
   apt:
     name: "{{ item }}"
   loop:
@@ -12,11 +12,11 @@
     - libxnvctrl-dev
 
 - name: Clone from git
-  become: no
+
   git:
     repo: 'git@github.com:flightlessmango/MangoHud.git'
     dest: '{{ apps_path }}/mangohud'
-    recursive: yes
+    recursive: true
 
 - name: Verify clone
   stat:
@@ -30,7 +30,7 @@
   when: mh_path.stat.exists
 
 - name: Install
-  become: yes
+  become: true
   shell: './build.sh install'
   args:
     chdir: '{{ apps_path }}/mangohud'

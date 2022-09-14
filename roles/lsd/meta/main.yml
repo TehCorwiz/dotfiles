@@ -5,4 +5,3 @@ dependencies:
   - role: naftulikay.rust-dev
     rust_user: "{{ ansible_user_id }}"
   - role: git
-
