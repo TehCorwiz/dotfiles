@@ -5,18 +5,19 @@
   vars:
     apps_path: /home/{{ ansible_user_id }}/Apps
   roles:
-#    - system
-#    - git
-#    - zsh
-#    - vim
-#    - role: naftulikay.rust-dev
-#      rust_user: "{{ ansible_user_id }}"
-#    - lsd
-#    - firefox-developer
-#    - jetbrains-toolbox
-#    - docker
-#    - xow
-#    - mangohud
-#    - goverlay
-#    - vkbasalt
-    - replay_sorcery
+    - system
+    - git
+    - zsh
+    - vim
+    - role: naftulikay.rust-dev
+      rust_user: "{{ ansible_user_id }}"
+    - lsd
+    - firefox-developer
+    - jetbrains-toolbox
+    - docker
+    - xow
+    - zotero
+    - mangohud
+    - goverlay
+    - vkbasalt
+
