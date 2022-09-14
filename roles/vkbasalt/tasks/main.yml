@@ -1,0 +1,34 @@
+---
+- name: Install APT dependencies
+  become: yes
+  apt:
+    name: "{{ item }}"
+  loop:
+    - spirv-headers
+    - glslang-dev
+    - libvulkan-dev
+
+- name: Clone from git
+  become: no
+  git:
+    repo: 'git@github.com:DadSchoorse/vkBasalt.git'
+    dest: '{{ apps_path }}/vkBasalt'
+    recursive: yes
+
+- name: Verify clone
+  stat:
+    path: '{{ apps_path }}/vkBasalt'
+  register: vk_path
+
+- name: Build
+  shell: 'meson --buildtype=release --prefix=/usr builddir'
+  args:
+    chdir: '{{ apps_path }}/vkBasalt'
+  when: vk_path.stat.exists
+
+- name: Install
+  become: yes
+  shell: 'ninja -C builddir install'
+  args:
+    chdir: '{{ apps_path }}/vkBasalt'
+  when: vk_path.stat.exists

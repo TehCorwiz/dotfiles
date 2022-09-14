@@ -1,0 +1,38 @@
+---
+- name: Install lazarus-ide
+  become: yes
+  apt:
+    name: lazarus-ide
+
+- name: Install libqt5pas
+  become: yes
+  apt:
+    deb: "{{ item }}"
+  loop:
+    - https://github.com/davidbannon/libqt5pas/releases/download/v1.2.10/libqt5pas1_2.10-0_amd64.deb
+    - https://github.com/davidbannon/libqt5pas/releases/download/v1.2.10/libqt5pas-dev_2.10-0_amd64.deb
+
+- name: Clone from git
+  become: no
+  git:
+    repo: 'git@github.com:benjamimgois/goverlay.git'
+    dest: '{{ apps_path }}/goverlay'
+    recursive: yes
+
+- name: Verify clone
+  stat:
+    path: '{{ apps_path }}/goverlay'
+  register: mh_path
+
+- name: Build
+  shell: 'make'
+  args:
+    chdir: '{{ apps_path }}/goverlay'
+  when: mh_path.stat.exists
+
+- name: Install
+  become: yes
+  shell: 'make install'
+  args:
+    chdir: '{{ apps_path }}/goverlay'
+  when: mh_path.stat.exists

@@ -1,0 +1,37 @@
+---
+- name: Install APT dependencies
+  become: yes
+  apt:
+    name: "{{ item }}"
+  loop:
+    - python3-mako
+    - gcc-multilib
+    - g++-multilib
+    - mesa-common-dev
+    - libx11-dev
+    - libxnvctrl-dev
+
+- name: Clone from git
+  become: no
+  git:
+    repo: 'git@github.com:flightlessmango/MangoHud.git'
+    dest: '{{ apps_path }}/mangohud'
+    recursive: yes
+
+- name: Verify clone
+  stat:
+    path: '{{ apps_path }}/mangohud'
+  register: mh_path
+
+- name: Build
+  shell: './build.sh build'
+  args:
+    chdir: '{{ apps_path }}/mangohud'
+  when: mh_path.stat.exists
+
+- name: Install
+  become: yes
+  shell: './build.sh install'
+  args:
+    chdir: '{{ apps_path }}/mangohud'
+  when: mh_path.stat.exists
